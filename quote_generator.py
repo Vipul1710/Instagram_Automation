@@ -4,6 +4,18 @@ import requests
 class QuoteGenerator:
     def __init__(self):
         self.FALLBACK_QUOTES = {
+            "fitness": [
+                {"text": "The only bad workout is the one that didn't happen."},
+                {"text": "Your body can stand almost anything. It's your mind you have to convince."},
+                {"text": "Strength does not come from the body. It comes from the will."},
+                {"text": "Take care of your body. It's the only place you have to live."},
+                {"text": "The hard days are the best because that's when champions are made."},
+                {"text": "Fitness is not about being better than someone else. It's about being better than you used to be."},
+                {"text": "The difference between try and triumph is a little umph."},
+                {"text": "The only way to define your limits is by going beyond them."},
+                {"text": "What seems impossible today will one day become your warm-up."},
+                {"text": "Your health is an investment, not an expense."}
+            ],
             "motivation": [
                 {"text": "Success is not final, failure is not fatal: it is the courage to continue that counts."},
                 {"text": "The only way to do great work is to love what you do."},
