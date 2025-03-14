@@ -51,8 +51,20 @@ class ImageCreator:
 
             # Set font properties
             font_size = int(image.size[1] * 0.052)
-            font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", font_size)
-            small_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", int(font_size * 0.9))
+            try:
+                # Try Ubuntu system font
+                font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", font_size)
+                small_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", int(font_size * 0.9))
+            except:
+                try:
+                    # Try macOS system font
+                    font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", font_size)
+                    small_font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", int(font_size * 0.9))
+                except:
+                    # Use default font as last resort
+                    print("Using default font as system fonts not found")
+                    font = ImageFont.load_default()
+                    small_font = ImageFont.load_default()
 
             # Prepare quote text
             quote_text = f'"{quote_data["text"]}"'
