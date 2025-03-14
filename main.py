@@ -18,7 +18,9 @@ def main():
     insta_uploader = InstagramUploader()
     
     # Generate image with quote
-    categories = ['motivation', 'wisdom', 'happiness', 'life']
+    # Weighted categories - fitness appears more frequently (6 out of 10)
+    categories = ['fitness', 'fitness', 'fitness', 'fitness', 'fitness', 'fitness',  # 6 times
+                 'motivation', 'wisdom', 'happiness', 'life']                        # 1 time each
     category = random.choice(categories)
     
     # Get quote and generate image
