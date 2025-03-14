@@ -32,10 +32,27 @@ INSTAGRAM_PASSWORD=your_instagram_password
 UNSPLASH_ACCESS_KEY=your_unsplash_api_key
 ```
 
-4. For GitHub Actions automation, add these secrets to your repository:
-- `INSTAGRAM_USERNAME`
-- `INSTAGRAM_PASSWORD`
-- `UNSPLASH_ACCESS_KEY`
+4. For GitHub Actions automation:
+
+First, run the script locally to create a valid Instagram session:
+```bash
+python main.py
+```
+Complete the 2FA verification when prompted.
+
+Then, add these secrets to your repository (Settings → Secrets and variables → Actions):
+- `INSTAGRAM_USERNAME`: Your Instagram username
+- `INSTAGRAM_PASSWORD`: Your Instagram password
+- `UNSPLASH_ACCESS_KEY`: Your Unsplash API key
+- `INSTAGRAM_SESSION`: Content of the generated `instagram_session.json` file
+
+To add the Instagram session:
+1. After running the script locally, find the generated `instagram_session.json`
+2. Copy its entire content
+3. Create a new repository secret named `INSTAGRAM_SESSION`
+4. Paste the content as the secret value
+
+This session file will allow GitHub Actions to post to Instagram without requiring 2FA verification.
 
 ## Usage
 
