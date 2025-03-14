@@ -28,11 +28,15 @@ jobs:
     - name: Create instaPhotos directory
       run: mkdir -p instaPhotos
 
-    - name: Create .env file
+    - name: Setup authentication
       run: |
+        # Create .env file
         echo "INSTAGRAM_USERNAME=${{ secrets.INSTAGRAM_USERNAME }}" >> .env
         echo "INSTAGRAM_PASSWORD=${{ secrets.INSTAGRAM_PASSWORD }}" >> .env
         echo "UNSPLASH_ACCESS_KEY=${{ secrets.UNSPLASH_ACCESS_KEY }}" >> .env
+        
+        # Create Instagram session file from secret
+        echo "${{ secrets.INSTAGRAM_SESSION }}" > instagram_session.json
 
     - name: Run script
       run: python main.py
