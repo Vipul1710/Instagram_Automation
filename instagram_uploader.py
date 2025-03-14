@@ -21,35 +21,28 @@ class InstagramUploader:
         try:
             session_file = "instagram_session.json"
             
-            # First time setup
-            if not os.path.exists(session_file):
-                print("\nPerforming first-time Instagram setup...")
-                print("You will need to complete 2FA verification.")
-                print("This only needs to be done once to create a valid session.\n")
-                
-                # Initial login will trigger 2FA
-                cl.login(username=self.username, password=self.password)
-                
-                # Save the authenticated session
-                cl.dump_settings(session_file)
-                print("\nSession file created successfully!")
-                print(f"The session file has been saved to: {session_file}")
-                print("\nFor GitHub Actions automation:")
-                print("1. Copy the entire content of instagram_session.json")
-                print("2. Add it as a repository secret named INSTAGRAM_SESSION")
-                
-            else:
-                try:
-                    # Use existing session
+            if not self.username or not self.password:
+                print("\nError: Instagram credentials not found in .env file!")
+                return False
+
+            try:
+                if os.path.exists(session_file):
+                    # Load and verify session
                     cl.load_settings(session_file)
                     print("Loaded existing session")
-                    cl.relogin()
-                except Exception as e:
-                    print(f"\nError: Failed to use existing session: {e}")
-                    print("Please delete instagram_session.json and run the script again")
-                    return False
-            
-            print("Login successful!")
+                    cl.login(username=self.username, password=self.password)
+                else:
+                    # Create new session
+                    print("\nCreating new Instagram session...")
+                    cl.login(username=self.username, password=self.password)
+                    cl.dump_settings(session_file)
+                    print("Session file created successfully!")
+                
+                print("Login successful!")
+            except Exception as e:
+                print(f"\nError: Failed to login: {e}")
+                print("Please check your credentials and try again")
+                return False
 
             # Prepare caption
             caption = f'"{quote_data["text"]}"\n\n#inspiration #{quote_data["category"]} #quotes'
